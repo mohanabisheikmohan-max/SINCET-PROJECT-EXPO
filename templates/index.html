@@ -1,0 +1,168 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>INNOVATE TECH 2K26</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <b>INNOVATE <span>TECH 2K26</span></b>
+    <a href="{{ url_for('admin_login') }}">Admin Login</a>
+</header>
+
+<main>
+    <!-- Event poster -->
+    <section class="hero">
+        <div>
+            <small>COLLEGE TECH EVENT · 04.11.2026</small>
+            <h1>Ideas become<br><span>innovation.</span></h1>
+            <p>Team size is three members.</p>
+            <a class="btn" href="#register">Register your team</a>
+        </div>
+
+        <img class="poster"
+             src="{{ url_for('static', filename='images/event-poster.png') }}"
+             alt="INNOVATE TECH 2K26 Event Poster">
+    </section>
+
+    <!-- Flash messages -->
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+        {% for cat, msg in msgs %}
+            <p class="msg {{ cat }}">{{ msg }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <!-- Registration form -->
+    <section id="register" class="form">
+        <h2>Team Registration</h2>
+
+        <form action="{{ url_for('register') }}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div class="grid">
+
+                <label>Team Name
+                    <input name="team_name"
+                           placeholder="Enter team name" required>
+                </label>
+
+                <label>College Name
+                    <input name="college_name"
+                           placeholder="Enter college name" required>
+                </label>
+
+                <label>Department
+                    <input name="department"
+                           placeholder="e.g. CSE, IT, ECE" required>
+                </label>
+
+                <label>Year of Study
+                    <select name="year_of_study" required>
+                        <option value="">Select your year</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                    </select>
+                </label>
+
+                <label>Team Leader
+                    <input name="team_leader"
+                           placeholder="Team leader name" required>
+                </label>
+
+                <label>Member 1
+                    <input name="member1"
+                           placeholder="Member 1 name" required>
+                </label>
+
+                <label>Member 2
+                    <input name="member2"
+                           placeholder="Member 2 name" required>
+                </label>
+
+                <label>Email
+                    <input type="email" name="email"
+                           placeholder="Enter email address" required>
+                </label>
+
+                <label>Phone
+                    <input type="tel" name="phone"
+                           placeholder="Enter phone number" required>
+                </label>
+
+                <label>Project Topic Name
+                    <input name="topic_name"
+                           placeholder="Enter project topic" required>
+                </label>
+
+                <label class="wide">Project Description
+                    <textarea name="topic_description"
+                              rows="4"
+                              placeholder="Describe your project"
+                              required></textarea>
+                </label>
+            </div>
+
+            <!-- Payment QR code -->
+            <section class="payment-section">
+                <h2>Scan &amp; Pay with GPay</h2>
+                <p>
+                    Scan the QR code using your payment app.
+                    Verify the recipient details before paying.
+                </p>
+
+                <img
+                    class="payment-qr"
+                    src="{{ url_for('static', filename='images/payment-qr.png') }}"
+                    alt="GPay Payment QR Code"
+                >
+
+                <p class="payment-note">
+                    After payment, enter your Transaction ID below.
+                </p>
+            </section>
+
+            <!-- Transaction ID and proof -->
+            <div class="grid">
+                <label>Payment Transaction ID
+                    <input type="text"
+                           name="transaction_id"
+                           placeholder="Enter transaction ID"
+                           required>
+                </label>
+
+                <label>Payment Proof (PNG/JPG/PDF, max 5MB)
+                    <input type="file"
+                           name="payment_proof"
+                           accept=".png,.jpg,.jpeg,.pdf">
+                </label>
+            </div>
+
+            <p>
+                Submitted registration details are intended
+                for admin review.
+            </p>
+
+            <button class="btn" type="submit">
+                Submit Registration
+            </button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    INNOVATE TECH 2K26 · 04.11.2026
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+```

@@ -1,0 +1,102 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>INNOVATE TECH 2K26 - Admin Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <b>INNOVATE TECH 2K26 — ADMIN DASHBOARD</b>
+
+        <nav>
+            <a href="{{ url_for('export') }}">Export CSV</a>
+            ·
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main class="form">
+        <h1>Team Registrations</h1>
+
+        <p>View the registration details submitted by participating teams.</p>
+
+        <div style="overflow-x:auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Team Name</th>
+                        <th>College Name</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>Team Members</th>
+                        <th>Project Topic &amp; Description</th>
+                        <th>Contact</th>
+                        <th>Transaction ID</th>
+                        <th>Payment Proof</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for r in rows %}
+                    <tr>
+                        <td>{{ r.id }}</td>
+
+                        <td>{{ r.team_name or '-' }}</td>
+
+                        <td>{{ r.college_name or '-' }}</td>
+
+                        <td>{{ r.department or '-' }}</td>
+
+                        <td>{{ r.year_of_study or '-' }}</td>
+
+                        <td>
+                            <strong>Leader:</strong> {{ r.team_leader }}<br>
+                            <strong>Member 1:</strong> {{ r.member1 }}<br>
+                            <strong>Member 2:</strong> {{ r.member2 }}
+                        </td>
+
+                        <td>
+                            <strong>{{ r.topic_name }}</strong><br>
+                            {{ r.topic_description }}
+                        </td>
+
+                        <td>
+                            {{ r.email }}<br>
+                            {{ r.phone }}
+                        </td>
+
+                        <td>{{ r.transaction_id }}</td>
+
+                        <td>
+                            {% if r.payment_proof %}
+                                <a href="{{ url_for('proof', name=r.payment_proof) }}">
+                                    Download Proof
+                                </a>
+                            {% else %}
+                                Not uploaded
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="10">No registrations yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        INNOVATE TECH 2K26 · 04.11.2026
+    </footer>
+</body>
+</html>

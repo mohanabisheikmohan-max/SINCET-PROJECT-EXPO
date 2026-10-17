@@ -1,0 +1,372 @@
+```css
+/* ========================================
+   INNOVATE TECH 2K26 - MAIN STYLESHEET
+   File: static/css/style.css
+======================================== */
+
+/* 1. Global Settings */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at 15% 0%, #17254a, transparent 36%),
+        #080d1b;
+    color: #f5f7ff;
+    font: 16px/1.55 Arial, sans-serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: #68f0ce;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #aaffeb;
+}
+
+/* 2. Header */
+header {
+    padding: 20px 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #ffffff22;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #080d1bee;
+    backdrop-filter: blur(12px);
+}
+
+header b {
+    font-size: 21px;
+    letter-spacing: 1px;
+}
+
+header span,
+small {
+    color: #68f0ce;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* 3. Hero Section */
+.hero {
+    max-width: 1150px;
+    margin: auto;
+    padding: 60px 24px;
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    gap: 42px;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.05;
+    margin: 18px 0;
+}
+
+.hero h1 span {
+    color: #9682ff;
+}
+
+.hero p {
+    color: #c2cbe0;
+}
+
+.poster {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    border: 1px solid #ffffff30;
+    border-radius: 18px;
+    padding: 8px;
+    background: #111a2d;
+}
+
+/* 4. Buttons */
+.btn {
+    display: inline-block;
+    border: 0;
+    border-radius: 10px;
+    background: #68f0ce;
+    color: #08121b;
+    font-weight: bold;
+    padding: 13px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s ease;
+}
+
+.btn:hover {
+    background: #a0ffe7;
+    color: #08121b;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 5. Main Form and Admin Panels */
+.form {
+    max-width: 950px;
+    margin: 25px auto 70px;
+    padding: 32px;
+    background: #111a2d;
+    border: 1px solid #26314a;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px #00000020;
+}
+
+.form h1,
+.form h2 {
+    margin-top: 0;
+}
+
+.form p {
+    color: #c2cbe0;
+}
+
+/* 6. Form Grid */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-weight: bold;
+    min-width: 0;
+}
+
+.wide {
+    grid-column: 1 / -1;
+}
+
+/* 7. Inputs */
+input,
+textarea,
+select {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    background: #080f20;
+    color: white;
+    border: 1px solid #35415d;
+    border-radius: 8px;
+    font: inherit;
+    outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #68f0ce;
+    box-shadow: 0 0 0 3px #68f0ce20;
+}
+
+input[type="file"] {
+    padding: 10px;
+    font-size: 14px;
+}
+
+input[type="file"]::file-selector-button {
+    background: #26314a;
+    color: white;
+    border: 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* 8. Payment QR Section */
+.payment-section {
+    margin-top: 28px;
+    padding: 24px;
+    text-align: center;
+    background: #0b1325;
+    border: 1px solid #35415d;
+    border-radius: 16px;
+}
+
+.payment-section h2 {
+    color: #68f0ce;
+    margin-top: 0;
+}
+
+.payment-section p {
+    color: #c2cbe0;
+}
+
+.payment-qr {
+    display: block;
+    width: 260px;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #d8dce5;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+.payment-note {
+    font-size: 14px;
+    color: #aab5cf;
+}
+
+/* 9. Messages */
+.msg {
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.success {
+    color: #aaffdf;
+    background: #1b664522;
+}
+
+.error {
+    color: #ffb8c6;
+    background: #7c243522;
+}
+
+/* 10. Admin Dashboard Table */
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    min-width: 750px;
+    width: 100%;
+    background: #111a2d;
+}
+
+td,
+th {
+    padding: 12px;
+    border-bottom: 1px solid #35415d;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    color: #68f0ce;
+    background: #18233b;
+    white-space: nowrap;
+}
+
+tr:hover td {
+    background: #ffffff06;
+}
+
+td a {
+    text-decoration: underline;
+}
+
+/* 11. Footer */
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #aab5cf;
+    border-top: 1px solid #ffffff15;
+}
+
+/* 12. Responsive Design */
+@media (max-width: 700px) {
+    header {
+        padding: 16px 5%;
+        flex-wrap: wrap;
+    }
+
+    header b {
+        font-size: 18px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 35px 20px;
+        gap: 25px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    .poster {
+        max-height: 420px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wide {
+        grid-column: auto;
+    }
+
+    .form {
+        margin: 16px 12px 35px;
+        padding: 20px;
+    }
+
+    .payment-section {
+        padding: 18px 12px;
+    }
+
+    .payment-qr {
+        width: 240px;
+    }
+
+    header nav {
+        flex-wrap: wrap;
+    }
+}
+
+/* 13. Small Mobile Screens */
+@media (max-width: 380px) {
+    header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .form {
+        padding: 16px;
+    }
+
+    .btn {
+        max-width: 100%;
+    }
+}
+```
