@@ -30,7 +30,22 @@ def register():
   name=secure_filename(f.filename); ext=name.rsplit('.',1)[-1].lower() if '.' in name else ''
   if ext not in {'png','jpg','jpeg','pdf'}: flash('PNG/JPG/PDF proof மட்டும் upload செய்யவும்.','error'); return redirect(url_for('index'))
   filename=secrets.token_hex(8)+'_'+name; f.save(UPLOAD/filename)
- c=db(); mark='%s' if USE_POSTGRES else '?'; marks=', '.join([mark]*9); c.execute(f'INSERT INTO registrations (team_leader,member1,member2,topic_name,topic_description,email,phone,transaction_id,payment_proof) VALUES ({marks})',tuple(d[k] for k in keys)+(filename,)); c.commit(); c.close(); flash('Registration submitted successfully!','success'); return redirect(url_for('index'))
+ c=db(); mark='%s' if USE_POSTGRES else '?'; marks=', '.join([mark]*9); 
+c.execute(
+    f'''INSERT INTO registrations (
+        team_leader,
+        member_1,
+        member_2,
+        topic_name,
+        topic_description,
+        email,
+        phone,
+        transaction_id,
+        payment_proof
+    ) VALUES ({marks})''',
+    tuple(d[k] for k in keys) + (filename,)
+)
+
 def admin_only(fn):
  @wraps(fn)
  def w(*a,**kw):
