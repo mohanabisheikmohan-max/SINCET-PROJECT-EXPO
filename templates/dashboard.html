@@ -1,102 +1,215 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INNOVATE TECH 2K26 - Admin Dashboard</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 
-    <title>INNOVATE TECH 2K26 - Admin Dashboard</title>
+    <style>
+        .dashboard-container {
+            max-width: 1450px;
+            margin: 35px auto;
+            padding: 25px;
+            overflow: hidden;
+        }
+
+        .dashboard-container h1 {
+            margin-bottom: 10px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 25px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1250px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px 12px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid #34415c;
+        }
+
+        th {
+            background: #1a2740;
+            color: #55f5d4;
+            white-space: nowrap;
+        }
+
+        td {
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        tbody tr:hover {
+            background: rgba(85, 245, 212, 0.06);
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 22px 5%;
+            background: #080e1e;
+            border-bottom: 1px solid #26344d;
+        }
+
+        .dashboard-header nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-header a,
+        .proof-link {
+            color: #55f5d4;
+            text-decoration: none;
+        }
+
+        .dashboard-header a:hover,
+        .proof-link:hover {
+            text-decoration: underline;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .muted {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-container {
+                margin: 15px;
+                padding: 15px;
+            }
+
+            .dashboard-header {
+                padding: 18px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <b>INNOVATE TECH 2K26 — ADMIN DASHBOARD</b>
 
-        <nav>
-            <a href="{{ url_for('export') }}">Export CSV</a>
-            ·
-            <a href="{{ url_for('logout') }}">Logout</a>
-        </nav>
-    </header>
+<header class="dashboard-header">
+    <b>INNOVATE TECH 2K26 — ADMIN DASHBOARD</b>
 
-    <main class="form">
-        <h1>Team Registrations</h1>
+    <nav>
+        <a href="{{ url_for('export') }}">Export CSV</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
 
-        <p>View the registration details submitted by participating teams.</p>
+<main class="form dashboard-container">
 
-        <div style="overflow-x:auto">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Team Name</th>
-                        <th>College Name</th>
-                        <th>Department</th>
-                        <th>Year</th>
-                        <th>Team Members</th>
-                        <th>Project Topic &amp; Description</th>
-                        <th>Contact</th>
-                        <th>Transaction ID</th>
-                        <th>Payment Proof</th>
-                    </tr>
-                </thead>
+    <h1>Team Registrations</h1>
 
-                <tbody>
-                    {% for r in rows %}
-                    <tr>
-                        <td>{{ r.id }}</td>
+    <p class="muted">
+        View the registration details submitted by participating teams.
+    </p>
 
-                        <td>{{ r.team_name or '-' }}</td>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Team Name</th>
+                    <th>College Name</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th>Team Members</th>
+                    <th>Project Topic &amp; Description</th>
+                    <th>Contact</th>
+                    <th>Transaction ID</th>
+                    <th>Payment Proof</th>
+                </tr>
+            </thead>
 
-                        <td>{{ r.college_name or '-' }}</td>
+            <tbody>
+                {% for r in rows %}
+                <tr>
+                    <td>{{ r.get('id', '-') }}</td>
 
-                        <td>{{ r.department or '-' }}</td>
+                    <td>{{ r.get('team_name', '-') or '-' }}</td>
 
-                        <td>{{ r.year_of_study or '-' }}</td>
+                    <td>{{ r.get('college_name', '-') or '-' }}</td>
 
-                        <td>
-                            <strong>Leader:</strong> {{ r.team_leader }}<br>
-                            <strong>Member 1:</strong> {{ r.member1 }}<br>
-                            <strong>Member 2:</strong> {{ r.member2 }}
-                        </td>
+                    <td>{{ r.get('department', '-') or '-' }}</td>
 
-                        <td>
-                            <strong>{{ r.topic_name }}</strong><br>
-                            {{ r.topic_description }}
-                        </td>
+                    <td>{{ r.get('year_of_study', '-') or '-' }}</td>
 
-                        <td>
-                            {{ r.email }}<br>
-                            {{ r.phone }}
-                        </td>
+                    <td>
+                        <strong>Leader:</strong>
+                        {{ r.get('team_leader', '-') or '-' }}<br>
 
-                        <td>{{ r.transaction_id }}</td>
+                        <strong>Member 1:</strong>
+                        {{ r.get('member_1', r.get('member1', 'None')) or 'None' }}<br>
 
-                        <td>
-                            {% if r.payment_proof %}
-                                <a href="{{ url_for('proof', name=r.payment_proof) }}">
-                                    Download Proof
-                                </a>
-                            {% else %}
-                                Not uploaded
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="10">No registrations yet.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </main>
+                        <strong>Member 2:</strong>
+                        {{ r.get('member_2', r.get('member2', 'None')) or 'None' }}
+                    </td>
 
-    <footer>
-        INNOVATE TECH 2K26 · 04.11.2026
-    </footer>
+                    <td>
+                        <strong>{{ r.get('topic_name', '-') or '-' }}</strong><br>
+                        {{ r.get('topic_description', '-') or '-' }}
+                    </td>
+
+                    <td>
+                        {{ r.get('email', '-') or '-' }}<br>
+                        {{ r.get('phone', '-') or '-' }}
+                    </td>
+
+                    <td>
+                        {{ r.get('transaction_id', '-') or '-' }}
+                    </td>
+
+                    <td>
+                        {% set proof_file = r.get('payment_proof', '') %}
+
+                        {% if proof_file %}
+                            <a class="proof-link"
+                               href="{{ url_for('proof', name=proof_file) }}">
+                                Download Proof
+                            </a>
+                        {% else %}
+                            Not uploaded
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="10" class="empty-message">
+                        No registrations yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer style="text-align:center; padding:25px;">
+    INNOVATE TECH 2K26 · 04.11.2026
+</footer>
+
 </body>
 </html>
